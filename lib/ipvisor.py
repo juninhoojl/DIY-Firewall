@@ -26,9 +26,6 @@ lcd_backlight = 4
 lcd_colunas = 16
 lcd_linhas  = 2
 
-# Configuracao para display 20x4
-# lcd_colunas = 20
-# lcd_linhas  = 4
 
 # Inicializa o LCD nos pinos configurados acima
 lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5,
