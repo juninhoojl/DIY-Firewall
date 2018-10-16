@@ -1,4 +1,4 @@
-# Função Principal .rb
+# Função Principal Para Atualizar e Gerar Listas
 # José Luiz Corrêa Junior - juninhoojl
 # Escrito em Ruby
 # ----------------------------------------
