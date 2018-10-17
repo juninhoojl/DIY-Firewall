@@ -22,7 +22,6 @@ if ping -c 1 $link_ping ; then
 	fi
 		#criar pasta nova
 		mkdir $pasta_atual
-	
 
 	#descompactar arquivo baixado
 	tar -xvf all-zones.tar -C $pasta_atual
