@@ -22,3 +22,5 @@ t4 = Thread.new{listaAtaques()}
 #Aguarda as duas terminarem
 t3.join
 t4.join
+
+#Aqui já teria que rodar o programa que aplica as regras (aplicar.rb)

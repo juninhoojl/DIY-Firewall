@@ -1,4 +1,4 @@
-# Função Principal Para Atualizar e Gerar Listas
+# Programa Para Atualizar e Gerar Listas
 # José Luiz Corrêa Junior - juninhoojl
 # Escrito em Ruby
 # ----------------------------------------

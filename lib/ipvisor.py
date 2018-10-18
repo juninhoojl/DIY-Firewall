@@ -1,6 +1,7 @@
-# Programa : Teste display LCD 16x2 e Raspberry Pi B+
-# (mostra Texto e endereco IP)
+# Programa para mostrar ip em um visor 16x2 Raspberry Pi B+
 # Autor : Arduino e Cia
+# Escrito em Python
+# ----------------------------------------
 
 import Adafruit_CharLCD as LCD
 import socket

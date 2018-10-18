@@ -60,8 +60,6 @@ for linhas in `cat $paises`; do
 
 done
 
-
-
 #Somente garante que aceita o resto
 $IPT -A FORWARD -j ACCEPT
 
