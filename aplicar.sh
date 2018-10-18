@@ -44,6 +44,8 @@ $IPT -A FORWARD -m conntrack --ctstate INVALID -j DROP
 
 #Acrescentar listas negar aqui
 
+#!!!!Lembrar de verificar se arquivo nao esta vazio
+
 #Laco para aplicar regras dos paises
 for linhas in `cat $paises`; do
 

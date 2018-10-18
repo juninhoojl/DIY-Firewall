@@ -1,19 +1,14 @@
-# Transforma lista de IPs e Links em somente IPs
+# Transforma lista de IPs e Links em somente IPs no caso dos whites
 # José Luiz Corrêa Junior - juninhoojl
 # Escrito em Ruby
 # ----------------------------------------
-
-#!OBS: Adicionar funcao que recebe
-# path do arquivo de entrada
-# path do arquivo de saida
-# path do arquivo de configuracao
 
 require "resolv" #lib para transformar links em ips
 require "ipaddress" # exige instalar:  gem install ipaddress
 
 #caminhos
-arq_entrada = '../manual/manual.black'
-arq_saida = '../out/lista.black'
+arq_entrada = '../manual/manual.white'
+arq_saida = '../out/lista.white'
 
 #lendo arquivo com entradas
 val_entrada = File.readlines(arq_entrada).map do |line|
