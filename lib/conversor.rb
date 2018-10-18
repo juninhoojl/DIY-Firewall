@@ -3,21 +3,17 @@
 # Escrito em Ruby
 # ----------------------------------------
 
-#Comando = resolveip www.google.com | cut -d" " -f6
-#resolveip https://stackoverflow.com | cut -d" " -f6
-
 #!OBS: Adicionar funcao que recebe
 # path do arquivo de entrada
 # path do arquivo de saida
 # path do arquivo de configuracao
 
-
 require "resolv" #lib para transformar links em ips
 require "ipaddress" # exige instalar:  gem install ipaddress
 
 #caminhos
-arq_entrada = './Arquivo/entrada.txt'
-arq_saida = './Arquivo/saida.txt'
+arq_entrada = '../manual/manual.black'
+arq_saida = '../out/lista.black'
 
 #lendo arquivo com entradas
 val_entrada = File.readlines(arq_entrada).map do |line|
@@ -72,11 +68,10 @@ som_ips += lista_ok if lista_ok != []
 #criar arquivo de saida
 saida_arquivo = File.new(arq_saida, "w")
 
-#escreve no arquivo caso tenha algo
-saida_arquivo.puts som_ips if som_ips != []
+#escreve no arquivo caso tenha algo e somente entradas diferentes
+saida_arquivo.puts som_ips.uniq if som_ips != []
 	
 #fechando arquivo de saida
 saida_arquivo.close
-
 
 
