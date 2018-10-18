@@ -6,52 +6,49 @@
 #Modulo para lidar com arquivos
 require 'fileutils'
 
-# Deleta arquivos da pasta out
-# Cria novas listas de flags com base na quantidade de itens que usam
-# Cria x linhas setado para zero
-# Zera todas as regras de firewall
-
 #Caminhos
 out='out' #Diretorio resultado
-flags='flags'
 flagsPaises='./flags/paises.flag'
 flagVpn='./flags/vpn.flag'
 flagAtaques='./flags/ataques.flag'
-
+black='./manual/manual.black' #Manual black
+white='./manual/manual.white' #Manual white
 #Caminhos quantidades a criar
 qtdcod='./data/paises.cod' #Paises
 qtdatk='./data/nomes.ataques' #Ataques
 
-#Deleta arquivos de saida
-FileUtils.rm_rf Dir.glob("#{out}/*")
 
-#Deleta arquivos de flag
-FileUtils.rm_rf Dir.glob("#{flags}/*")
+t1 = Thread.new{
+	#Recria arquivo com flag VPN
+	File.open(flagVpn, 'w') { |file| file.write 0 }
+	#Deleta arquivos de saida
+	FileUtils.rm_rf Dir.glob("#{out}/*")
+}
 
-#Conta quantidade de paises pelos codigos
-qtdpaises = `wc -l "#{qtdcod}"`.strip.split(' ')[0].to_i
+t2 = Thread.new{
+	#Cria flags resetadas para paises
+	File.open(flagsPaises, 'w') { |file| (`wc -l "#{qtdcod}"`.strip.split(' ')[0].to_i).times{ file.puts 0 } }
+}
 
-#Conta quantidade de ataques pelos nomes
-qtdataques = `wc -l "#{qtdatk}"`.strip.split(' ')[0].to_i
+t3 = Thread.new{
+	#Cria flags resetadas para ataques
+	File.open(flagAtaques, 'w') { |file| (`wc -l "#{qtdatk}"`.strip.split(' ')[0].to_i).times{ file.puts 0 } }
+}
 
-#Recria arquivo com flag VPN
-File.open(flagVpn, 'w') { |file| file.write 0 }
+t4 = Thread.new{
+	#Esvazia arquivo manual.white
+	whitefile = File.new(white, "w")
+	whitefile.close
+	#Esvazia arquivo manual.black
+	blackfile = File.new(black, "w")
+	blackfile.close
+}
 
-#Cria flags resetadas para paises
-File.open(flagsPaises, 'w') { |file| qtdpaises.times{ file.puts 0 } }
-
-#Cria flags resetadas para ataques
-File.open(flagAtaques, 'w') { |file| qtdataques.times{ file.puts 0 } }
-
-
-
-
-
-
-
-
-
-
+#Aguarda Terminarem
+t1.join
+t2.join
+t3.join
+t4.join
 
 
 
