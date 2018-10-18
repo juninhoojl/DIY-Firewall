@@ -33,7 +33,7 @@ t2 = Thread.new{listaAtaques()}
 t3 = Thread.new{listaBlack()}
 
 #Monta Lista dos White Manual
-t4 = Thread.new{listaWhite}
+t4 = Thread.new{listaWhite()}
 
 #Aguarda as duas terminarem
 t1.join
