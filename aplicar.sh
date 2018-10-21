@@ -4,18 +4,8 @@
 # ----------------------------------------
 #!/bin/bash
 
-#Limpa todas as regras
-iptables -F
-
-#Caminhos
-IPT=/sbin/iptables
+black=./out/lista.black
 paises=./out/lista.paises
-ataques=./out/lista.paises
-#Falta implementar
-
-white=./out/lista.paises #Lista a permitir
-black=./out/lista.black #Lista a parte
-
 
 #OBS. Bloqueia destino, por serem muitos
 # -A (Acrescenta Regra)
@@ -24,54 +14,131 @@ black=./out/lista.black #Lista a parte
 # -p (Especifica um protocolo)
 # --(Modulo conntrack, para checar conexao)
 
+#Caminhos paises
+set_paises=setpaises
+rest_paises=./out/lista.paises
+#Caminhos ataques
+set_ataques=setataques
+rest_ataques=./out/lista.ataques
+#Caminhos black
+set_black=setblack
+rest_black=./out/lista.black
+#Caminhos white
+set_white=setwhite
+rest_white=./out/lista.white
+
+#Confere se o ipset de paises existe
+ipset -L "$set_paises" >/dev/null 2>&1
+if [ $? -ne 0 ]; then #Se nao existir
+
+	#Cria o set
+	ipset create "$set_paises" hash:net maxelem 999999
+
+	#Carrega ipset com restore
+	ipset restore < "$rest_paises"
+	
+else #Se existir
+
+	#Deleta o set
+	ipset destroy "$set_paises"
+
+	#Cria o set
+	ipset create "$set_paises" hash:net maxelem 999999
+
+	#Carrega ipset com restore
+	ipset restore < "$rest_paises"
+
+fi
+
+
+#Confere se o ipset de ataques existe
+ipset -L "$set_ataques" >/dev/null 2>&1
+if [ $? -ne 0 ]; then #Se nao existir
+
+	#Cria o set com tamanho 999999
+	ipset create "$set_ataques" hash:net maxelem 999999
+
+	#Carrega ipset com restore
+	ipset restore < "$rest_paises"
+	
+else #Se existir
+
+	#Deleta o set
+	ipset destroy "$set_ataques"
+
+	#Cria o set com tamanho maximo 999999
+	ipset create "$set_ataques" hash:net maxelem 999999
+
+	#Carrega ipset com restore
+	ipset restore < "$rest_ataques"
+
+fi
+
+
+#Confere se o ipset black manual existe
+ipset -L "$set_black" >/dev/null 2>&1
+if [ $? -ne 0 ]; then #Se nao existir
+
+	#Cria o set com tamanho 999999
+	ipset create "$set_black" hash:net maxelem 999999
+
+	#Carrega ipset com restore
+	ipset restore < "$rest_black"
+	
+else #Se existir
+
+	#Deleta o set
+	ipset destroy "$set_black"
+
+	#Cria o set com tamanho maximo 999999
+	ipset create "$set_black" hash:net maxelem 999999
+
+	#Carrega ipset com restore
+	ipset restore < "$rest_black"
+
+fi
+
+
+#Confere se o ipset white manual existe
+ipset -L "$set_black" >/dev/null 2>&1
+if [ $? -ne 0 ]; then #Se nao existir
+
+	#Cria o set com tamanho 999999
+	ipset create "$set_white" hash:net maxelem 999999
+
+	#Carrega ipset com restore
+	ipset restore < "$rest_white"
+	
+else #Se existir
+
+	#Deleta o set
+	ipset destroy "$set_white"
+
+	#Cria o set com tamanho maximo 999999
+	ipset create "$set_white" hash:net maxelem 999999
+
+	#Carrega ipset com restore
+	ipset restore < "$rest_white"
+
+fi
+
+#Limpa todas as regras do iptables
+iptables -F
+
 #Para State Full
 $IPT -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
 #Ja bloqueia o que considere invalido, sabe que é inutil
 $IPT -A FORWARD -m conntrack --ctstate INVALID -j DROP
 
-#Acao utilizando diretamente IP ou Rede
-#$IPT -A FORWARD -d ipOUrede -j DROP
+#Regra que aceita white manual do set especifico
+iptables -A FORWARD -m set --match-set "$set_white" dst -j ACCEPT
 
-#!IMPORTANTE
-#Bloqueia um dos protocolos usados em VPN
-#$IPT -A FORWARD -p gre -j DROP
+#Regra que bloqueia black manual do set especifico
+iptables -A FORWARD -m set --match-set "$set_black" dst -j DROP
 
-#Acrescentar Bloquear VPN ou nao
-#Por meio de condicao de comparacao da primeira linha do arquivo
+#Regra que bloqueia paises do set especifico
+iptables -A FORWARD -m set --match-set "$set_paises" dst -j DROP
 
-#Acrescentar listas aceitar aqui
-
-#Acrescentar listas negar aqui
-
-for linhas in `cat $black`; do
-
-	#Bloqueia um destino todo, independente do protocolo
-	$IPT -A FORWARD -m physdev --physdev-in eth0 -s "$linhas" -j DROP
-
-done
-
-#!!!!Lembrar de verificar se arquivo nao esta vazio
-
-#Laco para aplicar regras dos paises
-for linhas in `cat $paises`; do
-
-	#Bloqueia um destino todo, independente do protocolo
-	$IPT -A FORWARD -m physdev --physdev-in eth0 -s "$linhas" -j DROP
-
-done
-
-#Laco para aplicar regras dos ataques
-for linhas in `cat $paises`; do
-
-	#Bloqueia um destino todo, independente do protocolo
-	$IPT -A FORWARD -m physdev --physdev-in eth0 -s "$linhas" -j DROP
-
-done
-
-#Somente garante que aceita o resto
-#$IPT -A FORWARD -j ACCEPT
-
-
-
-	
+#Regra que bloqueia ataques do set especifico
+iptables -A FORWARD -m set --match-set "$set_ataques" dst -j DROP
