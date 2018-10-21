@@ -1,0 +1,67 @@
+ iface lo inet loopback
+ iface eth0 inet manual
+ iface eth1 inet manual
+
+ iface br0 inet static
+  address 192.168.0.240
+  netmask 255.255.255.0
+  gateway 192.168.0.1
+  dns-nameservers 8.8.8.8 8.8.4.4
+  bridge_ports eth0 eth1
+
+ allow-hotplug wlan0
+ iface wlan0 inet manual
+ wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+ iface default inet dhcp
+
+
+
+  # This file describes the network interfaces available on your system
+ # and how to activate them. For more information, see interfaces(5).
+
+ # The loopback network interface
+ auto lo
+ iface lo inet loopback
+
+ # Set up interfaces manually, avoiding conflicts with, e.g., network manager
+ iface eth0 inet manual
+
+ iface eth1 inet manual
+
+ # Bridge setup
+ iface br0 inet dhcp
+    bridge_ports eth0 eth1
+
+
+    ####FINAL##############
+
+
+iface lo inet loopback
+iface eth0 inet manual
+iface eth1 inet manual
+
+iface br0 inet dhcp
+	bridge_ports eth0 eth1
+
+allow-hotplug wlan0
+
+iface default inet dhcp
+
+
+###############
+
+ARQUIVO que tem que descomentar as linhas
+
+ /etc/sysctl.conf
+
+ descomentar linhas :
+
+ net.ip4.ip_forward=1
+
+ e a do ipv6
+
+ net.ipv4.conf.all.forwarding=1
+
+
+
+

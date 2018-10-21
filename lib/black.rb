@@ -9,6 +9,7 @@ require "ipaddress" # exige instalar:  gem install ipaddress
 #caminhos
 arq_entrada = '../manual/manual.black'
 arq_saida = '../out/lista.black'
+nome_set = 'BlockPaises'
 
 #lendo arquivo com entradas
 val_entrada = File.readlines(arq_entrada).map do |line|
@@ -63,9 +64,14 @@ som_ips += lista_ok if lista_ok != []
 #criar arquivo de saida
 saida_arquivo = File.new(arq_saida, "w")
 
-#escreve no arquivo caso tenha algo e somente entradas diferentes
-saida_arquivo.puts som_ips.uniq if som_ips != []
-	
+#Verifica que é unico
+som_ips = som_ips.uniq
+
+#escrevendo nele
+som_ips.each do |item|
+	saida_arquivo.puts "add #{nome_set} #{item} -exist"
+end
+
 #fechando arquivo de saida
 saida_arquivo.close
 

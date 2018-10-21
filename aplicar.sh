@@ -9,12 +9,12 @@ iptables -F
 
 #Caminhos
 IPT=/sbin/iptables
-paises=../out/lista.paises
-ataques=../out/lista.paises
+paises=./out/lista.paises
+ataques=./out/lista.paises
 #Falta implementar
 
-white=../out/lista.paises #Lista a permitir
-black=../out/lista.black #Lista a parte
+white=./out/lista.paises #Lista a permitir
+black=./out/lista.black #Lista a parte
 
 
 #OBS. Bloqueia destino, por serem muitos
@@ -44,13 +44,20 @@ $IPT -A FORWARD -m conntrack --ctstate INVALID -j DROP
 
 #Acrescentar listas negar aqui
 
+for linhas in `cat $black`; do
+
+	#Bloqueia um destino todo, independente do protocolo
+	$IPT -A FORWARD -m physdev --physdev-in eth0 -s "$linhas" -j DROP
+
+done
+
 #!!!!Lembrar de verificar se arquivo nao esta vazio
 
 #Laco para aplicar regras dos paises
 for linhas in `cat $paises`; do
 
 	#Bloqueia um destino todo, independente do protocolo
-	$IPT -A FORWARD -d "$linhas" -j DROP
+	$IPT -A FORWARD -m physdev --physdev-in eth0 -s "$linhas" -j DROP
 
 done
 
@@ -58,12 +65,12 @@ done
 for linhas in `cat $paises`; do
 
 	#Bloqueia um destino todo, independente do protocolo
-	$IPT -A FORWARD -d "$linhas" -j DROP
+	$IPT -A FORWARD -m physdev --physdev-in eth0 -s "$linhas" -j DROP
 
 done
 
 #Somente garante que aceita o resto
-$IPT -A FORWARD -j ACCEPT
+#$IPT -A FORWARD -j ACCEPT
 
 
 

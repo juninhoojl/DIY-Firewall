@@ -8,6 +8,7 @@ arquivo_marcadores = '../flags/paises.flag'
 arquivo_codigos = '../data/paises.cod'
 arquivo_bloquear = '../out/lista.paises'
 arquivo_zonas = '../data/all-zones/'
+nome_set = 'BlockPaises'
 
 #Abre arquivo com marcadores do status atual, bloqueado = 1, nao = 0
 marcadores = File.readlines(arquivo_marcadores).map do |line|
@@ -51,9 +52,14 @@ end
 #criar arquivo de saida
 saida_arquivo = File.new(arquivo_bloquear, "w")
 
+#Verifica que é unico
+if enderecos != []
+	enderecos = enderecos.uniq
+end
+
 #escrevendo nele
 enderecos.each do |item|
-	saida_arquivo.puts item
+	saida_arquivo.puts "add #{nome_set} #{item[0]} -exist"
 end
 
 #fechar arquivo de saida
