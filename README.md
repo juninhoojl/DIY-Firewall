@@ -1,6 +1,6 @@
-# PinFusor
 
-![PinFusor](img_md/PinFusor.png)
+
+![PinFusor](img_md/logo.png)
 
 
 Descricao do pinfusor
@@ -15,11 +15,11 @@ Descricao do pinfusor
 > 
 > `Banco de Dados` - [André Vitor Beraldo](https://github.com/AndreBeraldo) 
 > 
-> `Firewall` - José Luiz Corrêa Junior - [GitHub](https://github.com/juninhoojl) 
+> `Firewall` - 👻 [José Luiz Corrêa Junior](https://github.com/juninhoojl) 
 > 
-> `Frontend` - Halyson  - [GitHub](https://github.com/link) - <email>
+> `Frontend` - Halyson Vinícius Morais - <halysonmorais@get.inatel.br>
 > 
-> `Frontend` - Felipe dos Santos  - [GitHub](https://github.com/link) - <email>
+> `Frontend` - [Felipe dos Santos](https://github.com/SecureHub)
 
 ## Hardware Necessário
 
