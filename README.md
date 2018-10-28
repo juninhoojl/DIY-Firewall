@@ -44,7 +44,7 @@ Descricao do pinfusor
 
 ## Noções de Funcionamento
 
-### 1 - ARQUITETURA DA REDE
+### Arquitetura da Rede:
 
 * O sistema é basicamente composto pela união de um roteador, um Raspberry Pi, um ponto de acesso e as interfaces que estarão conectadas à rede naquele momento. Os três primeiros componentes estarão interligados por um cabo de rede Ethernet, por onde os dados serão trafegados e todas interfaces poderão se conectar, via Wi-fi, ao ponto de acesso.
 
@@ -53,6 +53,45 @@ Descricao do pinfusor
 * As interfaces conectadas ao ponto de acesso têm a opção de utilizar uma aplicação Web, desenvolvida em Python, HTML, CSS e JS, para configurar as informações presentes no banco de dados.
 
 ***Obs.:***Todos programas utilizados pela arquitetura estarão disponíveis na internet.*
+
+--
+
+![Step](img_md/step.gif)
+
+## 0 - Banco de Dados (Em qualquer computador)
+
+Na aplicação em questão, optou-se pela utilização de um banco MySQL hospedado, porém também pode ser utilizada uma rede local e em outros bancos de preferência, cabendo ao usuário apenas alterar o código para este.
+
+**1 -** Para utilizarmos o MySQL, neste caso, devemos realizar o download de um servidor independente de plataforma. Existem diversos, como o XAMPP, WAMP, por exemplo, porém utilizaremos o primeiro. Depois de realizarmos seu download, precisamos  instalá-lo (apresenta instalação simples) e inicializá-lo. Após, devemos acionar os botões `Start` para o Apache, MySQL e FileZilla, trazendo um resultado como a imagem que segue. 
+
+![Criando](img_md/img.png)
+
+**2 -** Isso nos permite acessar o banco em rede local. Quando os serviços estiverem ativos, clicaremos no botão “Admin” do MySQL, que nos redirecionará ao phpMyAdmin, interface gráfica de aplicação do MySQL.
+
+![Criando](img_md/img.png)
+
+**3 -** O servidor estando ativo, agora precisamos gerar nosso banco de dados e tabelas. Anote estes dados, pois serão importantes à frente. Para criarmos um banco de dados, precisamos clicar no botão SQL e executar o comando a seguir:
+
+```sql
+CREATE DATABASE nome_banco;
+	USE nome_banco;
+```
+
+Agora então devemos criar nossas tabelas. A aplicação em si contém duas tabelas, uma para validação de países a serem banidos e outra para armazenar os IP’s e/ou link de Website’s específicos.
+
+```sql
+CREATE TABLE validarippaises (ID int NOT NULL PRIMARY_KEY AUTO_INCREMENT, PAIS VARCHAR(100) NOT NULL, FLAG TINYINT(1) NOT NULL);
+CREATE TABLE linksespecificos (ID int NOT NULL PRIMARY_KEY AUTO_INCREMENT, ALVO VARCHAR(150));
+```
+
+Precisamos então inserir os países na primeira tabela. Para isso, devemos abrir o arquivo texto `PAÍSES.txt` presente na pasta do projeto. Copiaremos o conteúdo e acessaremos o mesmo botão `SQL` utilizado acima, colando e executando as linhas de código. Pronto, as tabelas estão criadas e funcionando. A seguir realizaremos a configuração do código da aplicação Desktop em função do banco de dados.
+
+Ao abrir o código do arquivo `PROJETO_REDES.py`, encontramos na linha 7 a função connect, cujos parâmetros referenciam o local de hospedagem do banco (que pode ser localhost, 127.0.0.1 ou o IP de uma hospedagem), o nome do banco de dados que será utilizado, o nome e a senha do usuário, caso esteja usando um. O usuário deve preencher essa região com os dados referentes ao seu banco.
+
+![Criando](img_md/img.png)
+
+
+
 
 ## 1 - Baixando o Sistema Operacional
 
@@ -204,6 +243,59 @@ gem install ipaddress
 Ruby foi escolhido para a maior parte dos programas/funções pois ela possui comandos complexos, que possibilitam fazer uma grande quantidade de coisas e operações com apenas uma linha simples ou uma pequena quantidade delas. Outra grande questão é a facilidade que a linguagem nos fornece para trabalhar com strings e caracteres, o que sem dúvida consiste em cerca de 50% das funcionalidades. Porém, foram usadas outras linguagens, como ShellScript e Python, de forma mais geral!
 
 
+## 13 -  Instalar Python 3 e Módulos Necessários
+
+Tendo o sistema operacional Raspbian instalado no Raspberry Pi, devemos adicionar algumas coisas. Em primeiro lugar, devemos instalar o Python na versão 3, uma vez que a versão 2 é o padrão do sistema. Para instalarmos o Python 3, devemos abrir o terminal e digitarmos alguns comandos.
+
+* Digite o comando abaixo para atualizar os pacotes:
+
+```sh
+sudo apt-get update
+```
+
+* E esse outro:
+
+```sh
+sudo apt-get install build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev
+```
+
+* O comando acima instala algumas ferramentas requeridas para o procedimento. Agora realizaremos o download do Python3, sua descompactação e executaremos algumas configurações necessárias. Faça isso executando os comandos abaixo:
+
+```sh
+wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tar.xz
+```
+```sh
+sudo tar xf Python-3.6.5.tar.xz
+```
+```sh
+cd Python-3.6.5
+```
+```sh
+sudo ./configure
+```
+```sh
+sudo make
+```
+```sh
+sudo make altinstall
+```
+
+**❗️Instalando Módulos Necessários:**	
+
+A forma com que o Python executa seus programas pede para que o usuário tenha os módulos necessários pelo algoritmo para que tudo funcione. Então, para isso, será necessário que instalemos alguns métodos rapidamente. Para isso, utilizaremos os comandos abaixo:
+
+```sh
+sudo pip install mysqlclient
+```
+
+```sh
+sudo pip install mysql-connector-python-rf
+```
+
+```sh
+sudo pip install Naked
+```
+
 ## 13 - Ajustes Antes de Configurar Rede Manualmente:
 
 Antes de executar esse passo reinicie o sistema:
@@ -291,14 +383,14 @@ E então reinicie o sistema por meio do comando:
 sudo reboot now
 
 ```
-# Um pouco sobre o Banco de Dados
 
-## O BANCO DE DADOS
+## 3.3 Rodando o Programa
 
-Na aplicação em questão, optou-se pela utilização de um banco MySQL hospedado, porém também pode ser utilizada uma rede local e em outros bancos de preferência, cabendo ao usuário apenas alterar o código para este.
+Como as configurações estão prontas, é necessário com que realizemos a transferência do programa para o Raspberry PI através de um pendrive, download transferindo-o para uma pasta de preferência. Acesse a pasta através do terminal e execute o comando a seguir:
 
-Para utilizarmos o MySQL, neste caso, devemos realizar o download de um servidor independente de plataforma. Existem diversos, como o XAMPP, WAMP, por exemplo, porém utilizaremos o primeiro. Depois de realizarmos seu download, precisamos  instalá-lo (apresenta instalação simples) e inicializá-lo. Após, devemos acionar os botões “Start” para o Apache, MySQL e FileZilla, trazendo um resultado como a imagem que segue. 
-
+```sh
+sudo python3 ./PROJETO-REDES.py
+```
 
 
 # Um pouco sobre o Frontend
@@ -322,7 +414,6 @@ O frontend é a parte do sistema responsável por realizar a comunicação c
 * 1 Dispositivo (Computador, Celular e afins) que contenha algum editor de texto e um navegador WEB.
  
 * Acesso à Internet.
-
 
 
 ## Programas utilizados
