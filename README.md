@@ -49,11 +49,11 @@ O que tem nessa versao
 
 * O sistema é basicamente composto pela união de um roteador, um Raspberry Pi, um ponto de acesso e as interfaces que estarão conectadas à rede naquele momento. Os três primeiros componentes estarão interligados por um cabo de rede Ethernet, por onde os dados serão trafegados e todas interfaces poderão se conectar, via Wi-fi, ao ponto de acesso.
 
-* O Raspberry Pi, como uma appliance, tem o objetivo de hospedar a aplicação gerenciadora do acesso à rede, a qual recebe todos os pacotes e os libera ou bloqueia ao ponto de acesso após o processamento dos filtros configurados. A aplicação é um software desenvolvido em Python e Ruby que utiliza um banco de dados MySQL para receber tais configurações armazenadas e atualizadas da rede.
+* O Raspberry Pi, como uma appliance, tem o objetivo de hospedar a aplicação gerenciadora do acesso à rede, a qual recebe todos os pacotes e os libera ou bloqueia ao ponto de acesso após o processamento dos filtros configurados. A aplicação é um software desenvolvido em Python, Ruby e Shell script que utiliza um banco de dados MySQL para receber tais configurações armazenadas e atualizadas da rede.
 
 * As interfaces conectadas ao ponto de acesso têm a opção de utilizar uma aplicação Web, desenvolvida em Python, HTML, CSS e JS, para configurar as informações presentes no banco de dados.
 
-***Obs.:***Todos programas utilizados pela arquitetura estarão disponíveis na internet.*
+**Obs.:**Todos programas utilizados pela arquitetura estarão disponíveis na internet.
 
 --
 
@@ -65,11 +65,11 @@ Na aplicação em questão, optou-se pela utilização de um banco MySQL hospeda
 
 **1 -** Para utilizarmos o MySQL, neste caso, devemos realizar o download de um servidor independente de plataforma. Existem diversos, como o XAMPP, WAMP, por exemplo, porém utilizaremos o primeiro. Depois de realizarmos seu download, precisamos  instalá-lo (apresenta instalação simples) e inicializá-lo. Após, devemos acionar os botões `Start` para o Apache, MySQL e FileZilla, trazendo um resultado como a imagem que segue. 
 
-![Criando](img_md/img.png)
+![Criando](img_md/xampp.png)
 
 **2 -** Isso nos permite acessar o banco em rede local. Quando os serviços estiverem ativos, clicaremos no botão “Admin” do MySQL, que nos redirecionará ao phpMyAdmin, interface gráfica de aplicação do MySQL.
 
-![Criando](img_md/img.png)
+![Criando](img_md/phpmyadmin.png)
 
 **3 -** O servidor estando ativo, agora precisamos gerar nosso banco de dados e tabelas. Anote estes dados, pois serão importantes à frente. Para criarmos um banco de dados, precisamos clicar no botão SQL e executar o comando a seguir:
 
