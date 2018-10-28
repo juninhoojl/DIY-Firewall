@@ -280,7 +280,66 @@ sudo reboot now
 ```
 
 
+# Um pouco sobre o Frontend
+
+
+## Ideia
+
+O frontend é a parte do sistema responsável por realizar a comunicação com o usuário, isto é, receber uma entrada de dados, enviar ao sistema interno para processar(Backend) e então retornar ao usuário uma saída, no caso, retornar uma confirmação ao usuário. O frontend da Aplicação, neste caso, foi realizado via interface WEB, utilizando conceitos básicos de:
+
+* HTML 
+* CSS
+* Javascript (Com framework Jquery)
+* Bootstrap(4.0)
+
+## O Que é Necessário para Modificar/Criar? 🤔
+Não tem nada muito complexo em criar uma interface, é uma parte bem dinâmica que pode ser apenas funcional ou possuir alguns incrementos visuais e interativos de acordo com a vontade do usuário.
+
+
+O frontend é a parte do sistema responsável por realizar a comunicação com o Observação: Para realizar o desenvolvimento do frontend, é necessário possuir:
+
+* 1 Dispositivo (Computador, Celular e afins) que contenha algum editor de texto e um navegador WEB.
+ 
+* Acesso à Internet.
 
 
 
+## Programas utilizados
+* [Sublime](https://www.sublimetext.com) - Editor de código usado por nós!
+* [Atom] (https://atom.io) - Ótima alternativa
 
+## 1 – Criando os documentos necessários
+Crie os documentos necessários para começar o desenvolvimento conforme a imagem abaixo (Um arquivo `.css` e um arquivo `.html`) :
+
+![Criando](img_md/front2.png)
+               
+  **Obs.:** Ao criar um arquivo HTML pelo editor de texto sublime, o cabeçalho necessário para o desenvolvimento em HTML é gerado automaticamente, portanto não se preocupe xD. (Digite html e aperte `tab`)
+
+
+## 2 - Um pouco sobre o Bootstrap
+
+O Twitter Bootstrap é um framework para utilizar funções prontas de CSS e possui integração com o Jquery, outro framework utilizado para utilizar funções prontas de Javascript.
+Utiliza-lo não exige conhecimento avançado. Após realizar a criação do documento necessário, é só pesquisar as funções desejadas e colocar no documento, uma boa criatividade pode ajudar a montar um frontend amigável.
+
+Caso desejar, siga as instruções na página do framework [Twitter Bootstrap](https://getbootstrap.com) e clique em `Get Started`
+
+![Criando](img_md/front3.png)
+
+## 3 – Utilizando o Bootstrap
+
+Para utiliza-lo, caso não tenha seguido a página, basta fazer as seguintes coisas:
+
+**1 -** Copie e cole o link de camada de estilo abaixo antes de todas as outras na sua tag `<head>`.
+
+```html
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+```
+
+**2 -**
+
+```html
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+```
