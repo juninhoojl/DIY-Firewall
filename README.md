@@ -5,13 +5,25 @@
 
 ## Versão 1.0 - Outrubro 2018
 
+### Recursos:
+
 * Bloqueio por Paises
 * Tipos de Ataques
 * Bloqueio Manual
 * Remocão Manual
 * Interface web para manipular banco de dados
 
-## Desenvolvido Por
+### Linguagens:
+
+* Ruby
+* Shell script
+* Python
+* HTML
+* CSS
+* JS
+* SQL
+
+### Desenvolvido Por
 
 > 
 > `Banco de Dados` - [André Vitor Beraldo](https://github.com/AndreBeraldo) 
