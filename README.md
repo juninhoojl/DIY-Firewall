@@ -53,7 +53,7 @@ O que tem nessa versao
 
 * As interfaces conectadas ao ponto de acesso têm a opção de utilizar uma aplicação Web, desenvolvida em Python, HTML, CSS e JS, para configurar as informações presentes no banco de dados.
 
-**Obs.:**Todos programas utilizados pela arquitetura estarão disponíveis na internet.
+**Obs.:** Todos programas utilizados pela arquitetura estarão disponíveis na internet.
 
 --
 
