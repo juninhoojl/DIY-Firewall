@@ -16,6 +16,11 @@ white='./manual/manual.white' #Manual white
 #Caminhos quantidades a criar
 qtdcod='./data/paises.cod' #Paises
 qtdatk='./data/nomes.ataques' #Ataques
+#Caminho arquivos out, criar vazios
+whiteout='./out/lista.white'
+blackout='./out/lista.black'
+paisesout='./out/lista.paises'
+ataquesout='./out/lista.ataques'
 
 
 t1 = Thread.new{
@@ -28,6 +33,7 @@ t1 = Thread.new{
 t2 = Thread.new{
 	#Cria flags resetadas para paises
 	File.open(flagsPaises, 'w') { |file| (`wc -l "#{qtdcod}"`.strip.split(' ')[0].to_i).times{ file.puts 0 } }
+
 }
 
 t3 = Thread.new{
@@ -42,6 +48,7 @@ t4 = Thread.new{
 	#Esvazia arquivo manual.black
 	blackfile = File.new(black, "w")
 	blackfile.close
+	
 }
 
 #Aguarda Terminarem
@@ -49,6 +56,18 @@ t1.join
 t2.join
 t3.join
 t4.join
+
+#chama funcao para montar tudo vazio
+system( "ruby montar.rb")
+
+#Reseta regras do IPtables
+#system( "iptables -F")
+
+#Reseta entradas no banco de dados
+
+
+
+
 
 
 

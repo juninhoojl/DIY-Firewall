@@ -9,7 +9,7 @@ require "ipaddress" # exige instalar:  gem install ipaddress
 #caminhos
 arq_entrada = '../manual/manual.black'
 arq_saida = '../out/lista.black'
-nome_set = 'BlockPaises'
+nome_set = 'setblack'
 
 #lendo arquivo com entradas
 val_entrada = File.readlines(arq_entrada).map do |line|

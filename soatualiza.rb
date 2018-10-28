@@ -20,3 +20,4 @@ t2 = Thread.new{atualAtaques()}
 #Aguarda t1 e t2 terminarem
 t1.join
 t2.join
+

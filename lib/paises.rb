@@ -8,7 +8,7 @@ arquivo_marcadores = '../flags/paises.flag'
 arquivo_codigos = '../data/paises.cod'
 arquivo_bloquear = '../out/lista.paises'
 arquivo_zonas = '../data/all-zones/'
-nome_set = 'BlockPaises'
+nome_set = 'setpaises'
 
 #Abre arquivo com marcadores do status atual, bloqueado = 1, nao = 0
 marcadores = File.readlines(arquivo_marcadores).map do |line|

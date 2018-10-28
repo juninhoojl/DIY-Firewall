@@ -8,7 +8,7 @@ arquivo_marcadores = '../flags/ataques.flag'
 arquivo_bloquear = '../out/lista.ataques'
 arquivo_listas = '../data/atak/'
 tipo_ataques = '../data/nomes.ataques'
-nome_set = 'BlockPaises'
+nome_set = 'setataques'
 
 #Abre arquivo com marcadores do status atual, bloqueado = 1, nao = 0
 marcadores = File.readlines(arquivo_marcadores).map do |line|

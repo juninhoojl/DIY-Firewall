@@ -116,7 +116,7 @@ fi
 
 
 #Confere se o ipset white manual existe
-ipset -L "$set_black" >/dev/null 2>&1
+ipset -L "$set_white" >/dev/null 2>&1
 if [ $? -ne 0 ]; then #Se nao existir
 
 	#Cria o set com tamanho 999999
@@ -148,15 +148,11 @@ iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 #Ja bloqueia o que considere invalido, sabe que é inutil
 iptables -A FORWARD -m conntrack --ctstate INVALID -j DROP
 
-#Regra que aceita white manual do set especifico (Aceitar 2 sentidos)
-iptables -A FORWARD -m set --match-set "$set_white" dst -j ACCEPT
-iptables -A FORWARD -m set --match-set "$set_white" src -j ACCEPT
-
 #Regra que bloqueia black manual do set especifico
-iptables -A FORWARD -m set --match-set "$set_black" dst -j DROP
+iptables -A FORWARD -m physdev --physdev-in eth1 -m set --match-set "$set_black" dst,dst -j DROP
 
 #Regra que bloqueia paises do set especifico
-iptables -A FORWARD -m set --match-set "$set_paises" dst -j DROP
+iptables -A FORWARD -m physdev --physdev-in eth1 -m set --match-set "$set_paises" dst,dst -j DROP
 
 #Regra que bloqueia ataques do set especifico
-iptables -A FORWARD -m set --match-set "$set_ataques" dst -j DROP
+iptables -A FORWARD -m physdev --physdev-in eth1 -m set --match-set "$set_ataques" dst,dst -j DROP
