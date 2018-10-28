@@ -45,7 +45,7 @@ O que tem nessa versao
 
 ## Noções de Funcionamento
 
-### Arquitetura da Rede:
+![Arquitetura](img_md/arq.png)
 
 * O sistema é basicamente composto pela união de um roteador, um Raspberry Pi, um ponto de acesso e as interfaces que estarão conectadas à rede naquele momento. Os três primeiros componentes estarão interligados por um cabo de rede Ethernet, por onde os dados serão trafegados e todas interfaces poderão se conectar, via Wi-fi, ao ponto de acesso.
 
@@ -87,12 +87,16 @@ CREATE TABLE linksespecificos (ID int NOT NULL PRIMARY_KEY AUTO_INCREMENT, ALVO 
 
 Precisamos então inserir os países na primeira tabela. Para isso, devemos abrir o arquivo texto `PAÍSES.txt` presente na pasta do projeto. Copiaremos o conteúdo e acessaremos o mesmo botão `SQL` utilizado acima, colando e executando as linhas de código. Pronto, as tabelas estão criadas e funcionando. A seguir realizaremos a configuração do código da aplicação Desktop em função do banco de dados.
 
-Ao abrir o código do arquivo `PROJETO_REDES.py`, encontramos na linha 7 a função connect, cujos parâmetros referenciam o local de hospedagem do banco (que pode ser localhost, 127.0.0.1 ou o IP de uma hospedagem), o nome do banco de dados que será utilizado, o nome e a senha do usuário, caso esteja usando um. O usuário deve preencher essa região com os dados referentes ao seu banco.
+Ao abrir o código do arquivo `main.py`, encontramos na linha 7 a função connect, cujos parâmetros referenciam o local de hospedagem do banco (que pode ser localhost, 127.0.0.1 ou o IP de uma hospedagem), o nome do banco de dados que será utilizado, o nome e a senha do usuário, caso esteja usando um. O usuário deve preencher essa região com os dados referentes ao seu banco.
 
-![Criando](img_md/img.png)
-
-
-
+```sql
+mydb = mysql.connector.connect(
+	host="endereço",
+	database="nome_banco",
+	user="nome_usuario (se tiver)",
+	passwd="senha_usuario (se tiver"
+)
+```
 
 ## 1 - Baixando o Sistema Operacional
 
@@ -214,7 +218,31 @@ sudo apt-get install php-fpm
 sudo nano -c /etc/nginx/sites-enabled/default
 ```
 
-Encontre a seguinte linha `linha` , por volta da linha 25
+* Encontre a seguinte linha `index index.html index.htm;` , por volta da linha 25. E a modifique para ficar assim:
+
+```
+index index.php index.html index.htm;
+```
+
+* Agora, encontre a linha `# location ~ \.php$ {` e descomente (Retire o `#`) dela e das seguintes linhas:
+
+`include snippets/fastcgi-php.conf;`
+`fastcgi_pass unix:/var/run/php5-fpm.sock;`
+
+* Deverá ficar algo assim:
+
+```
+# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+#
+location ~ \.php$ {
+include snippets/fastcgi-php.conf;
+
+# With php5-cgi alone:
+#       fastcgi_pass 127.0.0.1:9000;
+# With php5-fpm:
+fastcgi_pass unix:/var/run/php5-fpm.sock;
+}
+```
 
 **5-** Adicionando Nginx na inicialização:
 
@@ -222,31 +250,49 @@ Encontre a seguinte linha `linha` , por volta da linha 25
 sudo update-rc.d -f nginx defaults;
 ```
 
-Por padrão o Nginx utiliza `/var/www/html` no Raspbian, e não será necessário mudar. Então iremos acessar esse diretório e clonar o que desenvolvemos, com relação ao frontend, para ela:
+**6-**❗️Após ter feito isso, reinicie o sistema:
 
-
-
-
-Aqui vai clonar o conteudo do frontend para dentro da pasta www do nginx, pedir link do git
+```sh
+sudo apt-get reboot
+```
 
 
 **Motivo de escolha desse web server:**
 Considerando que o servidor web no nosso apenas irá servir para hospedar a interface de usuário, ou seja, muito poucas requisições serão feitas, e apenas um usuário por vez. E o desempenho x custo benefício (Consumo de recursos) do Nginx se destaca muito com pequeno volume de requisições.
 
 
-## 8 - Frontend
+## 9 - Frontend
 
-baixe os arquivos de front end e adicione na pasta do servidor nginx
+Esse passo consiste na cópia do conteúdo que está no nosso github para a pasta padrão do nginx.
 
-## 9 - Baixar os Programas Desenvolvidos por Nós
 
-Primeiramente instale o GIT no seu computador com o seguinte comando:
+**1 -** Instale o GIT com o comado abaixo: 
 
 ```sh
 sudo apt-get install git
 ```
 
-Logo após instalar, faça uma cópia dos arquivos desenvolvidos por nós para o diretório DIY-Firewall na sua pasta de usuário, que será criado automaticamente, com os comandos:
+**2 - Clone os Arquivos** 
+
+Por padrão o Nginx utiliza `/var/www/html` no Raspbian, e não será necessário mudar. Então iremos acessar esse diretório e clonar o que desenvolvemos, com relação ao frontend, para esse local:
+
+* Acesse o diretório:
+
+```sh
+cd /var/www/html
+
+```
+
+* Acesse o diretório:
+
+```sh
+sudo git clone LINKFRONT
+
+```
+
+## 10 - Backend
+
+Faça uma cópia dos arquivos desenvolvidos por nós para o diretório DIY-Firewall na sua pasta de usuário, que será criado automaticamente, com os comandos:
 
 Mas antes acesse o diretório de usuário: *❗️IMPORTANTE*
 
@@ -261,7 +307,7 @@ sudo git clone LINKGIT DIY-Firewall
 ```
 
 
-## 10 - Dando Todas as Permissões para execução
+## 11 - Dando Todas as Permissões para execução
 
 Com o comando abaixo será atribuída todas as possíveis permissões no diretório que contém todas as partes que são responsáveis por alterar regras, criar, deletar e afins.
 *❗️(Obs.: Atente-se para ter certeza que o diretório se encontra na pasta de usuário, representada por `~`)*
@@ -269,7 +315,6 @@ Com o comando abaixo será atribuída todas as possíveis permissões no diretó
 ```sh
 sudo chmod -R 777 ~/DIY-Firewall
 ```
-
 
 
 ## 12 - Instalar Ruby e Gem Necessária
