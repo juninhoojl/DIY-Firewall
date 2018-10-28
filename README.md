@@ -321,9 +321,7 @@ Crie os documentos necessários para começar o desenvolvimento conforme a ima
 O Twitter Bootstrap é um framework para utilizar funções prontas de CSS e possui integração com o Jquery, outro framework utilizado para utilizar funções prontas de Javascript.
 Utiliza-lo não exige conhecimento avançado. Após realizar a criação do documento necessário, é só pesquisar as funções desejadas e colocar no documento, uma boa criatividade pode ajudar a montar um frontend amigável.
 
-Caso desejar, siga as instruções na página do framework [Twitter Bootstrap](https://getbootstrap.com) e clique em `Get Started`
 
-![Criando](img_md/front3.png)
 
 ## 3 – Utilizando o Bootstrap
 
@@ -336,10 +334,25 @@ Para utiliza-lo, caso não tenha seguido a página, basta fazer as seguintes coi
 
 ```
 
-**2 -**
+**2 -** Faça a mesma coisa com esses src de js, dentro da <head> também!
 
 ```html
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 ```
+
+Caso queira maio detalhamento, acesse a página do framework [Twitter Bootstrap](https://getbootstrap.com) e clique em `Get Started`, como mostrado abaixo!
+
+![Criando](img_md/front3.png)
+
+## 4 - Finalmente! 😤
+
+Agora o documento já está pronto para receber as funções desejadas, caso queira colocar um menu, acesse a documentação do Bootstrap e cole os conteúdos dentro dos documentos .HTML e .CSS.
+A interface criada foi elaborada pensando apenas em funcionalidade, portanto é bem simples.
+
+## 5 - Resultados
+
+O Após a criação dos documentos e algumas horas na frente do computador, uma interface parecida com a seguinte pode ser criada:
+
+![Criando](img_md/front4.png)
