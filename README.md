@@ -41,6 +41,19 @@ Descricao do pinfusor
 
 [Etcher](https://etcher.io) (Para gravar .ISO no cartão SD de maneira fácil)
 
+
+## Noções de Funcionamento
+
+### 1 - ARQUITETURA DA REDE
+
+* O sistema é basicamente composto pela união de um roteador, um Raspberry Pi, um ponto de acesso e as interfaces que estarão conectadas à rede naquele momento. Os três primeiros componentes estarão interligados por um cabo de rede Ethernet, por onde os dados serão trafegados e todas interfaces poderão se conectar, via Wi-fi, ao ponto de acesso.
+
+* O Raspberry Pi, como uma appliance, tem o objetivo de hospedar a aplicação gerenciadora do acesso à rede, a qual recebe todos os pacotes e os libera ou bloqueia ao ponto de acesso após o processamento dos filtros configurados. A aplicação é um software desenvolvido em Python e Ruby que utiliza um banco de dados MySQL para receber tais configurações armazenadas e atualizadas da rede.
+
+* As interfaces conectadas ao ponto de acesso têm a opção de utilizar uma aplicação Web, desenvolvida em Python, HTML, CSS e JS, para configurar as informações presentes no banco de dados.
+
+***Obs.:***Todos programas utilizados pela arquitetura estarão disponíveis na internet.*
+
 ## 1 - Baixando o Sistema Operacional
 
 [Nesse endereço] (https://www.raspberrypi.org/downloads/raspbian/), faça o download do Raspbian Stretch Lite, clicando em `Download ZIP`:
@@ -278,6 +291,14 @@ E então reinicie o sistema por meio do comando:
 sudo reboot now
 
 ```
+# Um pouco sobre o Banco de Dados
+
+## O BANCO DE DADOS
+
+Na aplicação em questão, optou-se pela utilização de um banco MySQL hospedado, porém também pode ser utilizada uma rede local e em outros bancos de preferência, cabendo ao usuário apenas alterar o código para este.
+
+Para utilizarmos o MySQL, neste caso, devemos realizar o download de um servidor independente de plataforma. Existem diversos, como o XAMPP, WAMP, por exemplo, porém utilizaremos o primeiro. Depois de realizarmos seu download, precisamos  instalá-lo (apresenta instalação simples) e inicializá-lo. Após, devemos acionar os botões “Start” para o Apache, MySQL e FileZilla, trazendo um resultado como a imagem que segue. 
+
 
 
 # Um pouco sobre o Frontend
