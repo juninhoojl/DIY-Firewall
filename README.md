@@ -3,45 +3,24 @@
 ![PinFusor](img_md/logo.png)
 
 
-Descricao
+## Versão 1.0 - Outrubro 2018
 
-
-## Versão 1.0
-
-O que tem nessa versao
-
+* Bloqueio por Paises
+* Tipos de Ataques
+* Bloqueio Manual
+* Remocão Manual
+* Interface web para manipular banco de dados
 
 ## Desenvolvido Por
 
 > 
 > `Banco de Dados` - [André Vitor Beraldo](https://github.com/AndreBeraldo) 
 > 
-> `Firewall` - 👻 [José Luiz Corrêa Junior](https://github.com/juninhoojl) 
+> `Firewall` - [José Luiz Corrêa Junior](https://github.com/juninhoojl) 
 > 
 > `Frontend` - Halyson Vinícius Morais - <halysonmorais@get.inatel.br>
 > 
 > `Frontend` - [Felipe dos Santos](https://github.com/SecureHub)
-
-## Hardware Necessário
-
-**Observação:** Para reproduzir o que foi feito e desenvolvido por nós, basta um computador que possua pelo menos 2 interfaces de rede, porém, abaixo estão as especificações exatas do que foi usado!
-
-* **1** Raspberry Pi 3 Model B
-* **1** Cartão Micro Sd Ultra 32gb Classe10
-* **1** Adaptador Lan Rede Gigabit Usb 3.0 Ethernet 10/100/1000
-* **1** Cabo De Rede Ethernet 1m Metro Montado Rj45
-* **1** Carregador De Tomada Usb Samsung 5.0v 2.0a
-* **1** Cabo de dados usb com saída micro usb
-
-
-## Sistema Operacional:
-
-• [Raspbian Stretch Lite](https://www.raspberrypi.org/downloads/raspbian/) (Não possui gerenciador gráfico)
-
-## Programas Auxiliares: 
-
-[Etcher](https://etcher.io) (Para gravar .ISO no cartão SD de maneira fácil)
-
 
 ## Noções de Funcionamento
 
@@ -55,9 +34,19 @@ O que tem nessa versao
 
 **Obs.:** Todos programas utilizados pela arquitetura estarão disponíveis na internet.
 
---
+## Hardware Necessário
+
+**Observação:** Para reproduzir o que foi feito e desenvolvido por nós, basta um computador que possua pelo menos 2 interfaces de rede, porém, abaixo estão as especificações exatas do que foi usado!
+
+* **1** Raspberry Pi 3 Model B
+* **1** Cartão Micro Sd Ultra 32gb Classe10
+* **1** Adaptador Lan Rede Gigabit Usb 3.0 Ethernet 10/100/1000
+* **1** Cabo De Rede Ethernet 1m Metro Montado Rj45
+* **1** Carregador De Tomada Usb Samsung 5.0v 2.0a
+* **1** Cabo de dados usb com saída micro usb
 
 ![Step](img_md/step.gif)
+
 
 ## 0 - Banco de Dados (Em qualquer computador)
 
