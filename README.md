@@ -3,11 +3,12 @@
 ![PinFusor](img_md/logo.png)
 
 
-Descricao do pinfusor
+Descricao
 
 
 ## Versão 1.0
 
+O que tem nessa versao
 
 
 ## Desenvolvido Por
@@ -183,6 +184,60 @@ Caso haja alguma atualização, confirme com `Y` e aguarde a instalação, logo 
 sudo reboot now
 ```
 
+## 8 - Instalar e Configurar Nginx
+
+O Nginx é um servidor web, que será usado para hospedar as páginas que auxiliam o manuseio do banco de dados!
+
+**1-** Atualize os repositórios do Linux:
+
+```sh
+sudo apt-get update
+```
+
+**2-** Para instalar use o comando abaixo:
+
+```sh
+sudo apt-get install nginx
+```
+
+**3-** Instale o PHP
+
+```sh
+sudo apt-get install php-fpm
+```
+
+**4-** Habilite o PHP no Servidor:
+
+* Abra o arquivo default com o editor nano:
+
+```sh
+sudo nano -c /etc/nginx/sites-enabled/default
+```
+
+Encontre a seguinte linha `linha` , por volta da linha 25
+
+**5-** Adicionando Nginx na inicialização:
+
+```sh
+sudo update-rc.d -f nginx defaults;
+```
+
+Por padrão o Nginx utiliza `/var/www/html` no Raspbian, e não será necessário mudar. Então iremos acessar esse diretório e clonar o que desenvolvemos, com relação ao frontend, para ela:
+
+
+
+
+Aqui vai clonar o conteudo do frontend para dentro da pasta www do nginx, pedir link do git
+
+
+**Motivo de escolha desse web server:**
+Considerando que o servidor web no nosso apenas irá servir para hospedar a interface de usuário, ou seja, muito poucas requisições serão feitas, e apenas um usuário por vez. E o desempenho x custo benefício (Consumo de recursos) do Nginx se destaca muito com pequeno volume de requisições.
+
+
+## 8 - Frontend
+
+baixe os arquivos de front end e adicione na pasta do servidor nginx
+
 ## 9 - Baixar os Programas Desenvolvidos por Nós
 
 Primeiramente instale o GIT no seu computador com o seguinte comando:
@@ -215,14 +270,6 @@ Com o comando abaixo será atribuída todas as possíveis permissões no diretó
 sudo chmod -R 777 ~/DIY-Firewall
 ```
 
-## 11 - Instalando servidor web Nginx
-
-```sh
-sudo apt-get install nginx
-```
-
-**Motivo de escolha desse web server:**
-Considerando que o servidor web no nosso apenas irá servir para hospedar a interface de usuário, ou seja, muito poucas requisições serão feitas, e apenas um usuário por vez. E o desempenho x custo benefício (Consumo de recursos) do Nginx se destaca muito com pequeno volume de requisições.
 
 
 ## 12 - Instalar Ruby e Gem Necessária
