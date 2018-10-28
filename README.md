@@ -13,9 +13,9 @@ Descricao do pinfusor
 ## Desenvolvido Por
 
 > 
-> `Banco de Dados` - Andre Beraldo  - [GitHub](https://github.com/link) - <email>
+> `Banco de Dados` - [André Vitor Beraldo](https://github.com/AndreBeraldo) 
 > 
-> `Firewall` - José Luiz Corrêa Junior - [GitHub](https://github.com/juninhoojl) - <juninhopc@icloud.com> 
+> `Firewall` - José Luiz Corrêa Junior - [GitHub](https://github.com/juninhoojl) 
 > 
 > `Frontend` - Halyson  - [GitHub](https://github.com/link) - <email>
 > 
