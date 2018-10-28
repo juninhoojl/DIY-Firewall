@@ -64,7 +64,7 @@
 
 Na aplicação em questão, optou-se pela utilização de um banco MySQL hospedado, porém também pode ser utilizada uma rede local e em outros bancos de preferência, cabendo ao usuário apenas alterar o código para este.
 
-**1 -** Para utilizarmos o MySQL, neste caso, devemos realizar o download de um servidor independente de plataforma. Existem diversos, como o XAMPP, WAMP, por exemplo, porém utilizaremos o primeiro. Depois de realizarmos seu download, precisamos  instalá-lo (apresenta instalação simples) e inicializá-lo. Após, devemos acionar os botões `Start` para o Apache, MySQL e FileZilla, trazendo um resultado como a imagem que segue. 
+**1 -** Para utilizarmos o MySQL, neste caso, devemos realizar o download de um servidor independente de plataforma. Existem diversos, como o XAMPP, WAMP, por exemplo, porém utilizaremos o primeiro. Depois de realizarmos seu download, precisamos  instalá-lo (apresenta instalação simples) e inicializá-lo. Após, devemos acionar o botão `Start` para o Apache e MySQL, trazendo um resultado como a imagem que segue. 
 
 ![Criando](img_md/xampp.png)
 
@@ -79,11 +79,11 @@ CREATE DATABASE nome_banco;
 	USE nome_banco;
 ```
 
-Agora então devemos criar nossas tabelas. A aplicação em si contém duas tabelas, uma para validação de países a serem banidos e outra para armazenar os IP’s e/ou link de Website’s específicos.
+Agora então devemos criar nossas tabelas. A aplicação em si contém duas tabelas, uma para validação de países a serem banidos e outra para armazenar os IP’s e/ou link de Website’s específicos. Lembre-se que o nome das tabelas e atributos devem ser exatamente iguais para que o programa funcione sem erros! Então basta copiar e colar as sentenças no banco de dados.
 
 ```sql
-CREATE TABLE validarippaises (ID int NOT NULL PRIMARY_KEY AUTO_INCREMENT, PAIS VARCHAR(100) NOT NULL, FLAG TINYINT(1) NOT NULL);
-CREATE TABLE linksespecificos (ID int NOT NULL PRIMARY_KEY AUTO_INCREMENT, ALVO VARCHAR(150));
+CREATE TABLE validarippaises (ID int NOT NULL PRIMARY KEY AUTO_INCREMENT, PAIS VARCHAR(100) NOT NULL, FLAG TINYINT(1) NOT NULL);
+CREATE TABLE linksespecificos (ID int NOT NULL PRIMARY KEY AUTO_INCREMENT, ALVO VARCHAR(150));
 ```
 
 Precisamos então inserir os países na primeira tabela. Para isso, devemos abrir o arquivo texto `PAÍSES.txt` presente na pasta do projeto. Copiaremos o conteúdo e acessaremos o mesmo botão `SQL` utilizado acima, colando e executando as linhas de código. Pronto, as tabelas estão criadas e funcionando. A seguir realizaremos a configuração do código da aplicação Desktop em função do banco de dados.
@@ -95,7 +95,7 @@ mydb = mysql.connector.connect(
 	host="endereço",
 	database="nome_banco",
 	user="nome_usuario (se tiver)",
-	passwd="senha_usuario (se tiver"
+	passwd="senha_usuario (se tiver)"
 )
 ```
 
@@ -189,126 +189,7 @@ Caso haja alguma atualização, confirme com `Y` e aguarde a instalação, logo 
 sudo reboot now
 ```
 
-## 8 - Instalar e Configurar Nginx
-
-O Nginx é um servidor web, que será usado para hospedar as páginas que auxiliam o manuseio do banco de dados!
-
-**1-** Atualize os repositórios do Linux:
-
-```sh
-sudo apt-get update
-```
-
-**2-** Para instalar use o comando abaixo:
-
-```sh
-sudo apt-get install nginx
-```
-
-**3-** Instale o PHP
-
-```sh
-sudo apt-get install php-fpm
-```
-
-**4-** Habilite o PHP no Servidor:
-
-* Abra o arquivo default com o editor nano:
-
-```sh
-sudo nano -c /etc/nginx/sites-enabled/default
-```
-
-* Encontre a seguinte linha `index index.html index.htm;` , por volta da linha 25. E a modifique para ficar assim:
-
-```
-index index.php index.html index.htm;
-```
-
-* Agora, encontre a linha `# location ~ \.php$ {` e descomente (Retire o `#`) dela e das seguintes linhas:
-
-`include snippets/fastcgi-php.conf;`
-`fastcgi_pass unix:/var/run/php5-fpm.sock;`
-
-* Deverá ficar algo assim:
-
-```
-# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-#
-location ~ \.php$ {
-include snippets/fastcgi-php.conf;
-
-# With php5-cgi alone:
-#       fastcgi_pass 127.0.0.1:9000;
-# With php5-fpm:
-fastcgi_pass unix:/var/run/php5-fpm.sock;
-}
-```
-
-**5-** Adicionando Nginx na inicialização:
-
-```sh
-sudo update-rc.d -f nginx defaults;
-```
-
-**6-**❗️Após ter feito isso, reinicie o sistema:
-
-```sh
-sudo apt-get reboot
-```
-
-
-**Motivo de escolha desse web server:**
-Considerando que o servidor web no nosso apenas irá servir para hospedar a interface de usuário, ou seja, muito poucas requisições serão feitas, e apenas um usuário por vez. E o desempenho x custo benefício (Consumo de recursos) do Nginx se destaca muito com pequeno volume de requisições.
-
-
-## 9 - Frontend
-
-Esse passo consiste na cópia do conteúdo que está no nosso github para a pasta padrão do nginx.
-
-
-**1 -** Instale o GIT com o comado abaixo: 
-
-```sh
-sudo apt-get install git
-```
-
-**2 - Clone os Arquivos** 
-
-Por padrão o Nginx utiliza `/var/www/html` no Raspbian, e não será necessário mudar. Então iremos acessar esse diretório e clonar o que desenvolvemos, com relação ao frontend, para esse local:
-
-* Acesse o diretório:
-
-```sh
-cd /var/www/html
-
-```
-
-* Acesse o diretório:
-
-```sh
-sudo git clone LINKFRONT
-
-```
-
-## 10 - Backend
-
-Faça uma cópia dos arquivos desenvolvidos por nós para o diretório DIY-Firewall na sua pasta de usuário, que será criado automaticamente, com os comandos:
-
-Mas antes acesse o diretório de usuário: *❗️IMPORTANTE*
-
-```sh
-cd ~/
-```
-E nele execute o comando, que simplesmente fará um clone/copia:
-
-```sh
-sudo git clone LINKGIT DIY-Firewall
-
-```
-
-
-## 11 - Dando Todas as Permissões para execução
+## 8 - Dando Todas as Permissões para execução
 
 Com o comando abaixo será atribuída todas as possíveis permissões no diretório que contém todas as partes que são responsáveis por alterar regras, criar, deletar e afins.
 *❗️(Obs.: Atente-se para ter certeza que o diretório se encontra na pasta de usuário, representada por `~`)*
@@ -318,7 +199,7 @@ sudo chmod -R 777 ~/DIY-Firewall
 ```
 
 
-## 12 - Instalar Ruby e Gem Necessária
+## 9 - Instalar Ruby e Gem Necessária
 
 Utilize o comando abaixo para instalar o interpretador da linguagem de programação Ruby:
 
@@ -336,7 +217,7 @@ gem install ipaddress
 Ruby foi escolhido para a maior parte dos programas/funções pois ela possui comandos complexos, que possibilitam fazer uma grande quantidade de coisas e operações com apenas uma linha simples ou uma pequena quantidade delas. Outra grande questão é a facilidade que a linguagem nos fornece para trabalhar com strings e caracteres, o que sem dúvida consiste em cerca de 50% das funcionalidades. Porém, foram usadas outras linguagens, como ShellScript e Python, de forma mais geral!
 
 
-## 13 -  Instalar Python 3 e Módulos Necessários
+## 10 -  Instalar Python 3 e Módulos Necessários
 
 Tendo o sistema operacional Raspbian instalado no Raspberry Pi, devemos adicionar algumas coisas. Em primeiro lugar, devemos instalar o Python na versão 3, uma vez que a versão 2 é o padrão do sistema. Para instalarmos o Python 3, devemos abrir o terminal e digitarmos alguns comandos.
 
@@ -389,7 +270,7 @@ sudo pip install mysql-connector-python-rf
 sudo pip install Naked
 ```
 
-## 13 - Ajustes Antes de Configurar Rede Manualmente:
+## 11 - Ajustes Antes de Configurar Rede Manualmente:
 
 Antes de executar esse passo reinicie o sistema:
 
@@ -409,7 +290,7 @@ E retirar da inicialização do sistema operacional:
 sudo systemctl disable dhcpcd.service
 ```
 
-## 14 - Instalar bridge-utils e ipset
+## 12 - Instalar bridge-utils e ipset
 
 O `bridge-utils` é uma ferramenta que permitirá criar e manusear bridges, e deve ser instalada a com do comando abaixo:
 
@@ -424,7 +305,7 @@ sudo apt-get install ipset
 
 ```
 
-## 15 - Configurando Interfaces
+## 13 - Configurando Interfaces
 
 🕵🏻‍♂️ Antes disso, será necessário que seja plugado o adaptador lan rede usb, após isso cheque qual o nome das interfaces de rede por meio do comando abaixo:
 
@@ -486,78 +367,38 @@ sudo python3 ./PROJETO-REDES.py
 ```
 
 
-# Um pouco sobre o Frontend
+## 14 - Aplicação Web - Frontend e Backend
 
+A aplicação Web é a parte do sistema responsável por realizar a comunicação com o usuário, isto é, receber uma entrada de dados e enviá-las ao banco de dados para futuro processamento no Raspberry. A interface foi desenvolvida com os conceitos básicos de HTML, CSS, Javascript e Bootstrap(4.1), junto com o framework Flask da linguagem Python. Não tem nada muito complexo em criar uma interface, é uma parte bem dinâmica que pode ser apenas funcional ou possuir alguns incrementos visuais e interativos de acordo com a vontade do usuário. Contando com o Boostrap, que é um framework com funções CSS e JS prontas, que facilita o desenvolvimento do frontend de qualquer interface sem a necessidade de conhecimento aprofundado na área. Após a criação do documento necessário, é só pesquisar as funções desejadas e inserir no documento, uma boa criatividade pode ajudar a montar um frontend amigável.
 
-## Ideia
+**1 - Ferramentas Necessárias**
 
-O frontend é a parte do sistema responsável por realizar a comunicação com o usuário, isto é, receber uma entrada de dados, enviar ao sistema interno para processar(Backend) e então retornar ao usuário uma saída, no caso, retornar uma confirmação ao usuário. O frontend da Aplicação, neste caso, foi realizado via interface WEB, utilizando conceitos básicos de:
+Para realizar o desenvolvimento do frontend, neste caso, foi necessário:
 
-* HTML 
-* CSS
-* Javascript (Com framework Jquery)
-* Bootstrap(4.0)
-
-## O Que é Necessário para Modificar/Criar? 🤔
-Não tem nada muito complexo em criar uma interface, é uma parte bem dinâmica que pode ser apenas funcional ou possuir alguns incrementos visuais e interativos de acordo com a vontade do usuário.
-
-
-O frontend é a parte do sistema responsável por realizar a comunicação com o Observação: Para realizar o desenvolvimento do frontend, é necessário possuir:
-
-* 1 Dispositivo (Computador, Celular e afins) que contenha algum editor de texto e um navegador WEB.
- 
-* Acesso à Internet.
-
-
-## Programas utilizados
-* [Sublime](https://www.sublimetext.com) - Editor de código usado por nós!
+* Dispositivo (Computador, Celular e afins) que tenha acesso à internet e um navegador Web;
+* [SublimeText3](https://www.sublimetext.com) - Editor de código usado por nós!
 * [Atom] (https://atom.io) - Ótima alternativa
+* Terminal.
 
-## 1 – Criando os documentos necessários
-Crie os documentos necessários para começar o desenvolvimento conforme a imagem abaixo (Um arquivo `.css` e um arquivo `.html`) :
+**2 - Configurando o código com o banco** 
 
-![Criando](img_md/front2.png)
-               
-  **Obs.:** Ao criar um arquivo HTML pelo editor de texto sublime, o cabeçalho necessário para o desenvolvimento em HTML é gerado automaticamente, portanto não se preocupe xD. (Digite html e aperte `tab`)
+Na pasta está também contido o projeto da interface Web. Após clonado o projeto, devemos primeiro configurar a conexão com o banco de dados na aplicação. Devemos então abrir o arquivo "dbconnect.py" e alterarmos os valores para os mesmos presentes em nosso banco de dados e interface Desktop. 
 
+```sql
+def connection():
+	mydb = mysql.connector.connect(
+		host="endereço",
+		database="nome_banco",
+		user="nome_usuario (se tiver)",
+		passwd="senha_usuario (se tiver)"
+)
+```
 
-## 2 - Um pouco sobre o Bootstrap
+Agora temos a configuração feita também na interface Web. Como não temos a interface hospedada em um servidor, devemos abrir o terminal, acessar a pasta e digitar o seguinte código.
 
-O Twitter Bootstrap é um framework para utilizar funções prontas de CSS e possui integração com o Jquery, outro framework utilizado para utilizar funções prontas de Javascript.
-Utiliza-lo não exige conhecimento avançado. Após realizar a criação do documento necessário, é só pesquisar as funções desejadas e colocar no documento, uma boa criatividade pode ajudar a montar um frontend amigável.
-
-
-
-## 3 – Utilizando o Bootstrap
-
-Para utiliza-lo, caso não tenha seguido a página, basta fazer as seguintes coisas:
-
-**1 -** Copie e cole o link de camada de estilo abaixo antes de todas as outras na sua tag `<head>`.
-
-```html
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+```sh
+python __init__.py
 
 ```
 
-**2 -** Faça a mesma coisa com esses src de js, dentro da <head> também!
-
-```html
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-```
-
-Caso queira maio detalhamento, acesse a página do framework [Twitter Bootstrap](https://getbootstrap.com) e clique em `Get Started`, como mostrado abaixo!
-
-![Criando](img_md/front3.png)
-
-## 4 - Finalmente! 😤
-
-Agora o documento já está pronto para receber as funções desejadas, caso queira colocar um menu, acesse a documentação do Bootstrap e cole os conteúdos dentro dos documentos .HTML e .CSS.
-A interface criada foi elaborada pensando apenas em funcionalidade, portanto é bem simples.
-
-## 5 - Resultados
-
-O Após a criação dos documentos e algumas horas na frente do computador, uma interface parecida com a seguinte pode ser criada:
-
-![Criando](img_md/front4.png)
+Com isso, a interface será disponibilizada para no endereço local http://127.0.0.1:5000/.
