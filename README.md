@@ -30,7 +30,7 @@
 > 
 > `Firewall` - [José Luiz Corrêa Junior](https://github.com/juninhoojl) 
 > 
-> `Frontend` - Halyson Vinícius Morais - <halysonmorais@get.inatel.br>
+> `Frontend` - [Halyson Vinícius Morais](halysonmorais@get.inatel.br>)
 > 
 > `Frontend` - [Felipe dos Santos](https://github.com/SecureHub)
 
