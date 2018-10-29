@@ -204,15 +204,16 @@ sudo apt-get install git
 ```sh
 cd ~
 ```
-* E então clone:
+* E então clone o Backend
 
 ```sh
 sudo git clone https://github.com/juninhoojl/DIY-Firewall DIY-Firewall
 ```
-**OU** (Sua decisão)
+
+* E o frontend, ou seja, a interface de usuário
 
 ```sh
-sudo git clone https://github.com/AndreBeraldo/Interface_Web_Redes DIY-Firewall
+sudo git clone https://github.com/AndreBeraldo/Interface_Web_Redes Front
 ```
 
 **3 -** Dê Permissões Ao Diretório:
@@ -221,9 +222,32 @@ Com o comando abaixo será atribuída todas as possíveis permissões no diretó
 *❗️(Obs.: Atente-se para ter certeza que o diretório se encontra na pasta de usuário, representada por `~`)*
 
 ```sh
-sudo chmod -R 777 ~/infusor
+sudo chmod -R 777 ~/DIY-Firewall
 ```
 
+```sh
+sudo chmod -R 777 ~/Front
+```
+
+**4 -** ❗️ Criar Atalhos de Execução
+
+* Crie o atalho para o frontend com o comando:
+
+```sh
+sudo echo "alias infusor_front='sudo ~/Front/python __init__.py'" >~/.bashrc
+```
+
+* Crie o atalho para o backend com o comando:
+
+```sh 
+sudo echo "alias infusor_back='python3 ~/DIY-Firewall/infusor.py'" >~/.bashrc
+```
+
+* Aplique as Alterações:
+
+```sh
+source ~/.bashrc
+```
 
 ## 9 - Instalar Ruby e Gem Necessária
 
@@ -381,15 +405,14 @@ E então reinicie o sistema por meio do comando:
 
 ```sh
 sudo reboot now
-
 ```
 
 ## 14 Rodando o Programa
 
-Já tendo clonado o programa no passo `8`, para executar, apenas use o seguinte comando:
+Já tendo clonado o programa no passo `8` e criado o atalho para executar, apenas use o seguinte comando:
 
 ```sh
-sudo python3 ~/DIY-Firewall/PROJETO-REDES.py
+infusor_front
 ```
 
 ## 15 - Aplicação Web - Frontend e Backend
@@ -419,11 +442,12 @@ def connection():
 )
 ```
 
-Agora temos a configuração feita também na interface Web. Como não temos a interface hospedada em um servidor, devemos abrir o terminal, acessar a pasta e digitar o seguinte código.
+Agora temos a configuração feita também na interface Web. E foi criado um atalho para a execução, apenas use o comando abaixo:
+
 
 ```sh
-python __init__.py
-
+infusor_front
 ```
 
-Com isso, a interface será disponibilizada para no endereço local http://127.0.0.1:5000/.
+Com isso, a interface será disponibilizada para no endereço local `http://127.0.0.1:5000`
+
