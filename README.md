@@ -189,13 +189,39 @@ Caso haja alguma atualização, confirme com `Y` e aguarde a instalação, logo 
 sudo reboot now
 ```
 
-## 8 - Dando Todas as Permissões para execução
+## 8 - Clonando Repositório do Projeto
+
+**1 -** Primeiro instale o git:
+
+```sh
+sudo apt-get install git
+```
+
+**2 -** Em seguida, Clone o Projeto para a Pasta `DIY-Firewall`:
+
+* Se mova para a pasta de usuário
+
+```sh
+cd ~
+```
+* E então clone:
+
+```sh
+sudo git clone https://github.com/juninhoojl/DIY-Firewall DIY-Firewall
+```
+**OU** (Sua decisão)
+
+```sh
+sudo git clone https://github.com/AndreBeraldo/Interface_Web_Redes DIY-Firewall
+```
+
+**3 -** Dê Permissões Ao Diretório:
 
 Com o comando abaixo será atribuída todas as possíveis permissões no diretório que contém todas as partes que são responsáveis por alterar regras, criar, deletar e afins.
 *❗️(Obs.: Atente-se para ter certeza que o diretório se encontra na pasta de usuário, representada por `~`)*
 
 ```sh
-sudo chmod -R 777 ~/DIY-Firewall
+sudo chmod -R 777 ~/infusor
 ```
 
 
@@ -358,16 +384,15 @@ sudo reboot now
 
 ```
 
-## 3.3 Rodando o Programa
+## 14 Rodando o Programa
 
-Como as configurações estão prontas, é necessário com que realizemos a transferência do programa para o Raspberry PI através de um pendrive, download transferindo-o para uma pasta de preferência. Acesse a pasta através do terminal e execute o comando a seguir:
+Já tendo clonado o programa no passo `8`, para executar, apenas use o seguinte comando:
 
 ```sh
-sudo python3 ./PROJETO-REDES.py
+sudo python3 ~/DIY-Firewall/PROJETO-REDES.py
 ```
 
-
-## 14 - Aplicação Web - Frontend e Backend
+## 15 - Aplicação Web - Frontend e Backend
 
 A aplicação Web é a parte do sistema responsável por realizar a comunicação com o usuário, isto é, receber uma entrada de dados e enviá-las ao banco de dados para futuro processamento no Raspberry. A interface foi desenvolvida com os conceitos básicos de HTML, CSS, Javascript e Bootstrap(4.1), junto com o framework Flask da linguagem Python. Não tem nada muito complexo em criar uma interface, é uma parte bem dinâmica que pode ser apenas funcional ou possuir alguns incrementos visuais e interativos de acordo com a vontade do usuário. Contando com o Boostrap, que é um framework com funções CSS e JS prontas, que facilita o desenvolvimento do frontend de qualquer interface sem a necessidade de conhecimento aprofundado na área. Após a criação do documento necessário, é só pesquisar as funções desejadas e inserir no documento, uma boa criatividade pode ajudar a montar um frontend amigável.
 
@@ -378,7 +403,7 @@ Para realizar o desenvolvimento do frontend, neste caso, foi necessário:
 * Dispositivo (Computador, Celular e afins) que tenha acesso à internet e um navegador Web;
 * [SublimeText3](https://www.sublimetext.com) - Editor de código usado por nós!
 * [Atom] (https://atom.io) - Ótima alternativa
-* Terminal.
+* Ou até mesmo o Terminal. 👌🏻
 
 **2 - Configurando o código com o banco** 
 
