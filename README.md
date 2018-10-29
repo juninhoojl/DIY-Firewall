@@ -451,3 +451,6 @@ infusor_front
 
 Com isso, a interface será disponibilizada para no endereço local `http://127.0.0.1:5000`
 
+--
+
+![FIM](img_md/fim.gif)
