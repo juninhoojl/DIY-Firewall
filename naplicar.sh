@@ -148,6 +148,11 @@ iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 #Ja bloqueia o que considere invalido, sabe que é inutil
 iptables -A FORWARD -m conntrack --ctstate INVALID -j DROP
 
+#Regra que libera white manual do set especifico
+iptables -A FORWARD -m physdev --physdev-in eth1 -m set --match-set "$set_white" dst,dst -j ACCEPT
+iptables -A FORWARD -m physdev --physdev-in eth1 -m set --match-set "$set_white" src,src -j ACCEPT
+
+
 #Regra que bloqueia black manual do set especifico
 iptables -A FORWARD -m physdev --physdev-in eth1 -m set --match-set "$set_black" dst,dst -j DROP
 
