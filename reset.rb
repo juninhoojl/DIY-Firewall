@@ -13,6 +13,7 @@ flagVpn='./flags/vpn.flag'
 flagAtaques='./flags/ataques.flag'
 black='./manual/manual.black' #Manual black
 white='./manual/manual.white' #Manual white
+misto='./manual/manual.misto' #Manual misto
 #Caminhos quantidades a criar
 qtdcod='./data/paises.cod' #Paises
 qtdatk='./data/nomes.ataques' #Ataques
@@ -21,7 +22,6 @@ whiteout='./out/lista.white'
 blackout='./out/lista.black'
 paisesout='./out/lista.paises'
 ataquesout='./out/lista.ataques'
-
 
 t1 = Thread.new{
 	#Recria arquivo com flag VPN
@@ -48,6 +48,9 @@ t4 = Thread.new{
 	#Esvazia arquivo manual.black
 	blackfile = File.new(black, "w")
 	blackfile.close
+	#Esvazia arquivo manual.misto
+	mistofile = File.new(misto, "w")
+	mistofile.close
 	
 }
 
@@ -61,7 +64,7 @@ t4.join
 system( "ruby montar.rb")
 
 #Reseta regras do IPtables
-#system( "iptables -F")
+system( "iptables -F")
 
 #Reseta entradas no banco de dados
 

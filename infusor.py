@@ -26,7 +26,8 @@ def validarIpPaises():
     for row in mycursor:
         print(row[2], file=arq)
     arq.close()
-    execute_rb('./lib/paises.rb')
+    #Executa aplicar.sh
+    exec(open('./aplicar.sh').read())
 
 
 def zerarFlagsValidarIpPaises():
@@ -55,7 +56,7 @@ def bloquearPaisEspecifico():
         for tb in mycursor:
            print(tb)
 
-        escolha = input("Digite o código do país(0=Voltar): ")
+        escolha = input("Digite o codigo do pais(0=Voltar): ")
         if escolha == "0":
             return
         else:
@@ -69,7 +70,7 @@ def liberarPaisEspecifico():
         for tb in mycursor:
            print(tb)
 
-        escolha = input("Digite o código do país(0=Voltar): ")
+        escolha = input("Digite o codigo do pais(0=Voltar): ")
         if escolha == "0":
             return
         else:
@@ -84,7 +85,7 @@ def adicionarLinkEspecifico():
 
 
 def validarLinks():
-    arq = open('./manual/manual.txt', 'w')
+    arq = open('./manual/manual.misto', 'w')
     mycursor.execute('SELECT * FROM linksespecificos')
     for row in mycursor:
         print(row[1], file=arq)
@@ -99,7 +100,7 @@ def exibirLinksBloqueados():
 
 def removerLinkEspecifico():
     exibirLinksBloqueados()
-    cod = input("Digite o código a ser liberado: ")
+    cod = input("Digite o codigo a ser liberado: ")
     mycursor.execute('DELETE FROM linksespecificos WHERE ID="'+cod+'"')
     mycursor.execute('ALTER TABLE linksespecificos AUTO_INCREMENT = 1')
     validarLinks()
@@ -118,21 +119,21 @@ def menu():
             1.Adicionar na Blacklist
             2.Adicionar na WhiteList
             3.Exibir
-            4.Validar tabela de países
+            4.Validar tudo
             5.Sair 
             --------------------------
             """)
-            menu = input("Escolha uma opção: ")
+            menu = input("Escolha uma opcao: ")
             if menu == "1":
                 print("""
                      --------------------------
                     MENU - BLACKLIST
-                    1.País específico
-                    2.Ip específico
-                    3.Todos países
+                    1.Pais especifico
+                    2.Ip especifico
+                    3.Todos paises
                     --------------------------
                     """)
-                menuBlacklist = input("Escolha uma opção: ")
+                menuBlacklist = input("Escolha uma opcao: ")
                 if menuBlacklist == "1":
                     bloquearPaisEspecifico()
                     validarIpPaises()
@@ -142,17 +143,17 @@ def menu():
                     selecionarFlagsValidarIpPaises()
                     validarIpPaises()
                 elif menuBlacklist != "":
-                    print("\n Opção Invalida. Tente Novamente")
+                    print("\n Opcao Invalida. Tente Novamente")
             elif menu == "2":
                 print("""
                      --------------------------
                      MENU - BLACKLIST
-                     1.País específico
-                     2.Ip específico
-                     3.Todos países
+                     1.Pais especifico
+                     2.Ip especifico
+                     3.Todos paises
                      --------------------------
                     """)
-                menuWhitelist = input("Escolha uma opção: ")
+                menuWhitelist = input("Escolha uma opcao: ")
                 if menuWhitelist == "1":
                     liberarPaisEspecifico()
                     validarIpPaises()
@@ -162,18 +163,18 @@ def menu():
                     zerarFlagsValidarIpPaises()
                     validarIpPaises()
                 elif menuWhitelist != "":
-                    print("\n Opção Invalida. Tente Novamente")
+                    print("\n Opcao Invalida. Tente Novamente")
             elif menu == "3":
                 print("""
                     --------------------------
-                    MENU - EXIBIÇÃO
-                    1.Exibir todos países
-                    2.Exibir países bloqueados
-                    3.Exibir países não-bloqueados
-                    4.Exibir links/IP's 
+                    MENU - EXIBICAO
+                    1.Exibir todos paises
+                    2.Exibir paises bloqueados
+                    3.Exibir paises nao-bloqueados
+                    4.Exibir links/IPs 
                     --------------------------
                     """)
-                menuExibicao = input("Escolha uma opção: ")
+                menuExibicao = input("Escolha uma opcao: ")
                 if menuExibicao == "1":
                     exibirValidarIpPaises()
                 elif menuExibicao == "2":
@@ -183,13 +184,14 @@ def menu():
                 elif menuExibicao == "4":
                     exibirLinksBloqueados()
                 elif menuExibicao != "":
-                    print("\n Opção Invalida. Tente Novamente")
+                    print("\n Opcao Invalida. Tente Novamente")
             elif menu == "4":
                 validarIpPaises()
+                validarLinks()
             elif menu == "5":
                 exit()
             elif menu != "":
-                print("\n Opção Invalida. Tente Novamente")
+                print("\n Opcao Invalida. Tente Novamente")
 
 
 menu()

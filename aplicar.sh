@@ -130,7 +130,7 @@ else #Se existir
 	#Tem que limpar
 	ipset flush "$set_white"
 
-	#Deleta o set
+	#Deleta o set 
 	ipset destroy "$set_white"
 
 	#Cria o set com tamanho maximo 999999
