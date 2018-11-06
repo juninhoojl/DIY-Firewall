@@ -2,7 +2,7 @@ import mysql.connector
 import sys,os
 from Naked.toolshed.shell import execute_rb
 import socket
-
+import os
 
 mydb = mysql.connector.connect(
     host="162.241.2.202",
@@ -26,8 +26,7 @@ def validarIpPaises():
     for row in mycursor:
         print(row[2], file=arq)
     arq.close()
-    #Executa aplicar.sh
-    exec(open('./aplicar.sh').read())
+    os.system('./aplicar.sh')
 
 
 def zerarFlagsValidarIpPaises():
