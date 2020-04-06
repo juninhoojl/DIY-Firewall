@@ -6,7 +6,7 @@
 
 #caminhos
 link_ping=www.google.com
-link=http://www.ipdeny.com/ipblocks/data/countries/all-zones.tar
+link=https://www.ipdeny.com/ipblocks/data/countries/all-zones.tar.gz
 pasta_atual=../data/all-zones
 
 #Antes de executar checa se está conectado
@@ -24,10 +24,10 @@ if ping -c 1 $link_ping ; then
 		mkdir $pasta_atual
 
 	#descompactar arquivo baixado
-	tar -xvf all-zones.tar -C $pasta_atual
+	tar -xvzf all-zones.tar.gz -C $pasta_atual
 
 	#remove o arquivo sem descompactar
-	rm all-zones.tar
+	rm all-zones.tar.gz
 
 fi
 
